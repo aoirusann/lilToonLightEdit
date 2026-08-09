@@ -1,0 +1,105 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get version from tag
+        id: ver
+        run: |
+          VERSION="${GITHUB_REF#refs/tags/v}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "zip=com.aoiru.ltle-$VERSION.zip" >> "$GITHUB_OUTPUT"
+
+      - name: Validate package.json version matches tag
+        run: |
+          PKG_VER=$(jq -r .version package.json)
+          if [ "$PKG_VER" != "${{ steps.ver.outputs.version }}" ]; then
+            echo "package.json version ($PKG_VER) does not match tag (v${{ steps.ver.outputs.version }})"
+            exit 1
+          fi
+
+      - name: Create zip
+        run: |
+          zip -r "${{ steps.ver.outputs.zip }}" . \
+            -x '.git/*' '.github/*' '.gitignore'
+
+      - name: Create GitHub Release
+        id: release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "v${{ steps.ver.outputs.version }}"
+          tag_name: ${{ github.ref_name }}
+          generate_release_notes: true
+          files: |
+            ${{ steps.ver.outputs.zip }}
+            package.json
+
+      - name: Update VPM Listing on gh-pages
+        run: |
+          set -e
+          VERSION="${{ steps.ver.outputs.version }}"
+          ZIP_URL="https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/com.aoiru.ltle-$VERSION.zip"
+          REPO_URL="https://github.com/${{ github.repository }}"
+          LISTING_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/index.json"
+
+          cp package.json /tmp/package.json
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git fetch origin gh-pages 2>/dev/null; then
+            git checkout gh-pages
+          else
+            git checkout --orphan gh-pages
+            git rm -rf --quiet . 2>/dev/null || true
+          fi
+
+          if [ -f index.json ]; then
+            EXISTING=$(cat index.json)
+          else
+            EXISTING=$(jq -n \
+              --arg url "$LISTING_URL" \
+              '{
+                "name": "Aoiru",
+                "id": "com.aoiru.vpm",
+                "url": $url,
+                "author": {
+                  "name": "Aoiru",
+                  "url": ("https://github.com/" + env.REPO_OWNER)
+                },
+                "packages": {}
+              }')
+          fi
+
+          NEW_VERSION=$(jq -n \
+            --argjson pkg "$(cat /tmp/package.json)" \
+            --arg url "$ZIP_URL" \
+            --arg repo "$REPO_URL" \
+            '$pkg + { url: $url, repo: $repo }')
+
+          UPDATED=$(echo "$EXISTING" | jq \
+            --argjson entry "$NEW_VERSION" \
+            --arg ver "$VERSION" \
+            '.packages["com.aoiru.ltle"] //= {}
+            | .packages["com.aoiru.ltle"].versions //= {}
+            | .packages["com.aoiru.ltle"].versions[$ver] = $entry')
+
+          echo "$UPDATED" > index.json
+
+          git add index.json
+          git commit -m "Add com.aoiru.ltle v$VERSION"
+          git push origin gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_OWNER: ${{ github.repository_owner }}
