@@ -80,6 +80,10 @@ jobs:
               }')
           fi
 
+          EXISTING=$(echo "$EXISTING" | jq \
+            --arg url "$LISTING_URL" \
+            '.name = "Aoiru" | .id = "com.aoiru.vpm" | .url = $url | .author = "aoirusann"')
+
           NEW_VERSION=$(jq -n \
             --argjson pkg "$(cat /tmp/package.json)" \
             --arg url "$ZIP_URL" \
