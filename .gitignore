@@ -1,0 +1,21 @@
+# OS
+Thumbs.db
+.DS_Store
+
+# IDE
+.idea/
+.vs/
+.vscode/
+*.csproj
+*.sln
+
+# Temp
+*.tmp
+*.temp
+*.log
+
+# Assets
+Raw~/
+
+# Unity meta files - must be tracked (override parent .gitignore)
+!*.meta
