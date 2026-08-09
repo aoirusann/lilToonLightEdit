@@ -75,10 +75,7 @@ jobs:
                 "name": "Aoiru",
                 "id": "com.aoiru.vpm",
                 "url": $url,
-                "author": {
-                  "name": "Aoiru",
-                  "url": ("https://github.com/" + env.REPO_OWNER)
-                },
+                "author": "aoirusann",
                 "packages": {}
               }')
           fi
