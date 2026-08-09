@@ -3,7 +3,7 @@
   "displayName": "lilToon Light Edit",
   "version": "1.0.0",
   "unity": "2022.3",
-  "description": "Runtime light editing plugin for lilToon shaders in VRChat. Adds RadialPuppet sliders to the Expressions menu for adjusting light limits, monochrome lighting, shadow environment strength, and unlit mode.",
+  "description": "A runtime light editing tool for VRChat players using lilToon shaders",
   "author": {
     "name": "Aoiru",
     "url": "https://github.com/aoirusann"
