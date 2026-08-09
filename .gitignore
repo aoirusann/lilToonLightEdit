@@ -17,5 +17,5 @@ Thumbs.db
 # Assets
 Raw~/
 
-# Unity meta files - must be tracked (override parent .gitignore)
-!*.meta
+# Unity
+*.meta
