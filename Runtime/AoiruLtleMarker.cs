@@ -4,7 +4,7 @@ using nadena.dev.modular_avatar.core;
 
 namespace Aoiru.ltle
 {
-    [AddComponentMenu("ltle/Light Edit Marker")]
+    [AddComponentMenu("Aoiru/iliToon Light Edit Marker")]
     public class AoiruLtleMarker : AvatarTagComponent
     {
         public float minLightLimit;
