@@ -51,9 +51,10 @@ jobs:
           VERSION="${{ steps.ver.outputs.version }}"
           ZIP_URL="https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/com.aoiru.ltle-$VERSION.zip"
           REPO_URL="https://github.com/${{ github.repository }}"
-          LISTING_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/index.json"
+          LISTING_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/vpm.json"
 
           cp package.json /tmp/package.json
+          cp index.html /tmp/index.html 2>/dev/null || true
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -65,8 +66,8 @@ jobs:
             git rm -rf --quiet . 2>/dev/null || true
           fi
 
-          if [ -f index.json ]; then
-            EXISTING=$(cat index.json)
+          if [ -f vpm.json ]; then
+            EXISTING=$(cat vpm.json)
           else
             EXISTING=$(jq -n \
               --arg url "$LISTING_URL" \
@@ -95,9 +96,14 @@ jobs:
             | .packages["com.aoiru.ltle"].versions //= {}
             | .packages["com.aoiru.ltle"].versions[$ver] = $entry')
 
-          echo "$UPDATED" > index.json
+          echo "$UPDATED" > vpm.json
 
-          git add index.json
+          if [ -f /tmp/index.html ]; then
+            cp /tmp/index.html index.html
+            git add index.html
+          fi
+
+          git add vpm.json
           git commit -m "Add com.aoiru.ltle v$VERSION"
           git push origin gh-pages
         env:
