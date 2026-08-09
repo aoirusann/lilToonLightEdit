@@ -2,10 +2,7 @@
   "name": "Aoiru",
   "id": "com.aoiru.vpm",
   "url": "https://aoirusann.github.io/lilToonLightEdit/vpm.json",
-  "author": {
-    "name": "Aoiru",
-    "url": "https://github.com/aoirusann"
-  },
+  "author": "aoirusann",
   "packages": {
     "com.aoiru.ltle": {
       "versions": {
