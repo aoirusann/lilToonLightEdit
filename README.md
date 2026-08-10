@@ -6,13 +6,15 @@ A runtime light editing tool for VRChat players using lilToon shaders, providing
 - An editor window for batch-adjusting lighting settings on all lilToon materials across an avatar
 - An NDMF (Non-Destructive Modular Framework) component that non-destructively adds an in-game menu for adjusting lilToon lighting at runtime
 
+[Github](https://github.com/aoirusann/lilToonLightEdit)
+
 ## Installation
 
 > Make sure your project already has [Modular Avatar](https://modular-avatar.nadena.dev/) installed.
 
 #### Option 1: VCC One-Click
 
-[![Add to VCC](https://img.shields.io/badge/Add%20to-VCC-7c3aed)](https://aoirusann.github.io/lilToonLightEdit)
+[![Add to VCC](https://img.shields.io/badge/Add%20to-VCC-7c3aed)](vcc://vpm/addRepo?url=https://aoirusann.github.io/lilToonLightEdit/vpm.json)
 
 1. Click the button above. Your browser will prompt you to open VRChat Creator Companion — confirm and the repository will be registered automatically.
 2. You can then add `lilToon Light Edit` to any Avatar project via "Manage Project" in VCC.
