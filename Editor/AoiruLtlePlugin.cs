@@ -156,7 +156,7 @@ namespace Aoiru.ltle
 
         private void AddMenuComponent(AoiruLtleMarker marker, PropertyDef[] defs, BuildContext ctx)
         {
-            var icon = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Aoiru/lilToonLightEdit/icon.png");
+            var icon = Resources.Load<Texture2D>("icon");
 
             // Inner menu: 5 RadialPuppet controls
             var innerMenu = ScriptableObject.CreateInstance<VRCExpressionsMenu>();
