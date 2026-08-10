@@ -1,4 +1,4 @@
-![](./icon.png)
+![](pic/icon.png)
 # lilToon Light Edit
 
 A runtime light editing tool for VRChat players using lilToon shaders, providing:
