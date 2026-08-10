@@ -54,7 +54,8 @@ jobs:
           LISTING_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/vpm.json"
 
           cp package.json /tmp/package.json
-          cp index.html /tmp/index.html 2>/dev/null || true
+          cp README.md /tmp/index.md
+          cp _config.yml /tmp/_config.yml
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -99,12 +100,10 @@ jobs:
 
           echo "$UPDATED" > vpm.json
 
-          if [ -f /tmp/index.html ]; then
-            cp /tmp/index.html index.html
-            git add index.html
-          fi
+          cp /tmp/index.md index.md
+          cp /tmp/_config.yml _config.yml
 
-          git add vpm.json
+          git add vpm.json index.md _config.yml
           git commit -m "Add com.aoiru.ltle v$VERSION"
           git push origin gh-pages
         env:
