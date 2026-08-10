@@ -56,6 +56,7 @@ jobs:
           cp package.json /tmp/package.json
           cp README.md /tmp/index.md
           cp _config.yml /tmp/_config.yml
+          cp -r pic /tmp/pic 2>/dev/null || true
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -102,6 +103,11 @@ jobs:
 
           cp /tmp/index.md index.md
           cp /tmp/_config.yml _config.yml
+          if [ -d /tmp/pic ]; then
+            rm -rf pic 2>/dev/null || true
+            cp -r /tmp/pic pic
+            git add pic/
+          fi
 
           git add vpm.json index.md _config.yml
           git commit -m "Add com.aoiru.ltle v$VERSION"
