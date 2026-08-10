@@ -17,6 +17,7 @@ A runtime light editing tool for VRChat players using lilToon shaders, providing
 <a href="vcc://vpm/addRepo?url=https://aoirusann.github.io/lilToonLightEdit/vpm.json" style="display:inline-block;padding:12px 28px;background:#7c3aed;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;">Add to VCC</a>
 
 1. Click the button above. Your browser will prompt you to open VRChat Creator Companion — confirm and the repository will be registered automatically.
+   1. If cannot click, paste this into your browser's address bar: `vcc://vpm/addRepo?url=https://aoirusann.github.io/lilToonLightEdit/vpm.json`
 2. You can then add `lilToon Light Edit` to any Avatar project via "Manage Project" in VCC.
 
 #### Option 2: UPM (git URL)
