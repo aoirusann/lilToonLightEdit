@@ -25,6 +25,26 @@
           "legacyFolders": {},
           "legacyFiles": {},
           "repo": "https://github.com/aoirusann/lilToonLightEdit"
+        },
+        "1.0.1": {
+          "name": "com.aoiru.ltle",
+          "displayName": "lilToon Light Edit",
+          "version": "1.0.1",
+          "unity": "2022.3",
+          "description": "A runtime light editing tool for VRChat players using lilToon shaders",
+          "author": {
+            "name": "Aoiru",
+            "url": "https://github.com/aoirusann"
+          },
+          "vpmDependencies": {
+            "com.vrchat.avatars": ">=3.10.3",
+            "nadena.dev.modular-avatar": ">=1.16.2",
+            "nadena.dev.ndmf": ">=1.11.0"
+          },
+          "url": "https://github.com/aoirusann/lilToonLightEdit/releases/download/v1.0.1/com.aoiru.ltle-1.0.1.zip",
+          "legacyFolders": {},
+          "legacyFiles": {},
+          "repo": "https://github.com/aoirusann/lilToonLightEdit"
         }
       }
     }
